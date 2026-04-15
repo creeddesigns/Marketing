@@ -1,14 +1,14 @@
-    <!DOCTYPE html>
+          <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>CreedMarket | Uganda Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #eef2f5 100%); color: #0f172a; line-height: 1.5; min-height: 100vh; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #eef2f5 100%); color: #0f172a; line-height: 1.5; min-height: 100vh; }
         @keyframes aurora { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         @keyframes floatIcon { 0% { transform: translateY(0px); } 100% { transform: translateY(-6px); } }
         
@@ -24,19 +24,11 @@
         .cart-badge:hover { transform: scale(1.02); }
         .hero { background: linear-gradient(108deg, #f0f7f4, #e8f0eb); padding: 2rem 1.5rem; text-align: center; }
         .hero h2 { font-size: 1.8rem; background: linear-gradient(125deg, #1F3B34, #E67E22); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
-        .hero p { color: #475569; margin-top: 6px; }
-        
-        .search-wrapper { max-width: 650px; margin: 1.5rem auto 0; position: relative; }
-        .search-icon-left { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 1rem; pointer-events: none; z-index: 1; }
-        .search-bar { width: 100%; padding: 14px 48px 14px 48px; border-radius: 56px; border: 1px solid #e2e8f0; background: white; font-size: 0.95rem; transition: all 0.25s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
-        .search-bar:focus { outline: none; border-color: #FFB347; box-shadow: 0 0 0 3px rgba(255, 180, 71, 0.15); background: white; }
-        .search-bar::placeholder { color: #94a3b8; font-weight: 400; }
-        .search-clear { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); color: #94a3b8; cursor: pointer; transition: 0.2s; font-size: 0.9rem; display: none; }
-        .search-clear:hover { color: #e74c3c; }
-        .search-clear.show { display: block; }
-        .search-shortcut { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); background: #f1f5f9; color: #64748b; font-size: 0.7rem; padding: 2px 8px; border-radius: 30px; font-weight: 500; pointer-events: none; }
-        .search-results-count { font-size: 0.8rem; color: #64748b; margin-top: 12px; text-align: left; font-weight: 450; }
-        
+        .search-container { max-width: 650px; margin: 1.5rem auto 0; position: relative; }
+        .search-bar { width: 100%; padding: 14px 24px; border-radius: 80px; border: none; background: white; box-shadow: 0 8px 20px rgba(0,0,0,0.08); font-size: 1rem; transition: 0.2s; }
+        .search-bar:focus { outline: none; box-shadow: 0 0 0 4px rgba(255, 160, 70, 0.3); }
+        .search-icon { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #94a3b8; }
+        .search-results-count { font-size: 0.85rem; color: #64748b; margin-top: 10px; text-align: left; }
         .container { max-width: 1400px; margin: 2rem auto; padding: 0 1.5rem; }
         .empty-marketplace { background: white; border-radius: 48px; padding: 3rem; text-align: center; box-shadow: 0 8px 30px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
         .empty-marketplace i { font-size: 4rem; background: linear-gradient(125deg, #FFB347, #FF6B6B); -webkit-background-clip: text; background-clip: text; color: transparent; animation: floatIcon 2s infinite alternate; }
@@ -70,9 +62,9 @@
         .status-pending { background: #fef3c7; color: #d97706; padding: 4px 10px; border-radius: 30px; font-size: 0.7rem; font-weight: 600; display: inline-block; }
         .status-approved { background: #d1fae5; color: #059669; padding: 4px 10px; border-radius: 30px; font-size: 0.7rem; font-weight: 600; display: inline-block; }
         .payment-buttons { display: flex; gap: 12px; margin: 15px 0; flex-direction: column; }
-        .btn-airtel { background: #E60000; color: white; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; font-size: 1rem; border-radius: 60px; }
-        .btn-airtel:hover { transform: translateY(-2px); filter: brightness(1.05); }
-        .btn-reset { background: #e74c3c; color: white; margin-top: 10px; }
+        .btn-mtn { background: #FFC107; color: #1a1a2e; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; font-size: 1rem; }
+        .btn-airtel { background: #E60000; color: white; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; font-size: 1rem; }
+        .btn-mtn:hover, .btn-airtel:hover { transform: translateY(-2px); filter: brightness(1.05); }
         .payment-info { background: #f0fdf4; border-radius: 24px; padding: 1rem; text-align: center; border: 1px solid #bbf7d0; margin: 1rem 0; }
         .payment-info .number { font-size: 1.5rem; font-weight: 800; letter-spacing: 2px; background: #1a3a32; color: white; padding: 8px; border-radius: 40px; display: inline-block; margin: 8px 0; }
         .image-upload-area { border: 2px dashed #cbd5e1; border-radius: 24px; padding: 1rem; text-align: center; margin: 10px 0; cursor: pointer; transition: 0.2s; }
@@ -82,8 +74,7 @@
         .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1a3a32; color: white; padding: 10px 24px; border-radius: 60px; z-index: 1200; font-weight: 600; box-shadow: 0 8px 18px rgba(0,0,0,0.2); font-size: 0.85rem; }
         .no-results { text-align: center; padding: 3rem; background: white; border-radius: 28px; color: #64748b; }
         .become-seller-btn { background: linear-gradient(95deg, #FFB347, #FF8C42); color: #1e2a2a; width: auto; padding: 12px 30px; margin-top: 1rem; border: none; border-radius: 60px; font-weight: 700; cursor: pointer; }
-        .reset-warning { background: #fee2e2; border: 1px solid #fecaca; border-radius: 24px; padding: 0.8rem; margin-bottom: 1rem; text-align: center; }
-        @media (max-width: 680px) { .navbar { flex-direction: column; text-align: center; padding: 1rem; } .nav-actions { justify-content: center; } .hero h2 { font-size: 1.4rem; } .search-wrapper { margin: 1rem auto 0; } }
+        @media (max-width: 680px) { .navbar { flex-direction: column; text-align: center; padding: 1rem; } .nav-actions { justify-content: center; } .hero h2 { font-size: 1.4rem; } }
     </style>
 </head>
 <body>
@@ -104,13 +95,10 @@
 
 <section class="hero">
     <h2><i class="fas fa-gem"></i> CreedMarket — Connect with Local Vendors</h2>
-    <p>Discover authentic products from verified sellers across Uganda</p>
-    
-    <div class="search-wrapper">
-        <i class="fas fa-search search-icon-left"></i>
-        <input type="text" id="globalSearchField" class="search-bar" placeholder="Search products, vendors, or categories...">
-        <i class="fas fa-times-circle search-clear" id="searchClearBtn"></i>
-        <span class="search-shortcut">⌘K</span>
+    <p style="margin-top: 6px;">Search products, vendors, or categories</p>
+    <div class="search-container">
+        <input type="text" id="globalSearchField" class="search-bar" placeholder="🔍 Search for fresh food, electronics, fashion...">
+        <i class="fas fa-search search-icon"></i>
     </div>
     <div id="searchResultsCount" class="search-results-count"></div>
 </section>
@@ -118,29 +106,30 @@
 <div class="container"><div id="marketplaceRoot"></div></div>
 
 <footer>
-    <p><i class="fas fa-shield-alt"></i> Vendor registration: Pay 5,000 UGX via Airtel Money to become a verified seller</p>
+    <p><i class="fas fa-shield-alt"></i> Vendor registration: Pay 5,000 UGX to become a verified seller</p>
     <p>© 2025 CreedMarket | All rights reserved</p>
 </footer>
 
 <!-- Cart Modal -->
 <div id="cartModalGlobal" class="modal"><div class="modal-card"><span id="closeCartModal" style="float:right; font-size:1.8rem; cursor:pointer;">&times;</span><h3><i class="fas fa-bag-shopping"></i> Your Cart</h3><div id="cartItemsContainer"></div><div id="cartTotalAmount" style="font-weight:bold; margin:1rem 0;"></div><button id="realCheckoutBtn">Confirm Order</button><div id="orderStatusMsg"></div></div></div>
 
-<!-- Seller Registration - Airtel Only -->
+<!-- Seller Registration -->
 <div id="registerSellerModal" class="modal">
     <div class="modal-card">
         <span id="closeRegModalBtn" style="float:right; font-size:1.8rem; cursor:pointer;">&times;</span>
         <h3><i class="fas fa-store"></i> Vendor Registration</h3>
         
         <div class="payment-info">
-            <i class="fas fa-mobile-alt fa-2x" style="color:#E60000;"></i>
+            <i class="fas fa-mobile-alt fa-2x" style="color:#E67E22;"></i>
             <p><strong>Registration Fee:</strong> <span style="font-size:1.5rem; font-weight:800;">5,000 UGX</span></p>
-            <p>Pay via Airtel Money to:</p>
+            <p>Pay to:</p>
             <div class="number">0709298041</div>
-            <small>Airtel Money only</small>
+            <small>MTN MoMo / Airtel Money</small>
         </div>
         
         <p style="margin-bottom: 10px;"><strong>Click below to pay directly:</strong></p>
         <div class="payment-buttons">
+            <button id="payWithMTN" class="btn-mtn"><i class="fas fa-circle"></i> Pay with MTN MoMo</button>
             <button id="payWithAirtel" class="btn-airtel"><i class="fas fa-circle"></i> Pay with Airtel Money</button>
         </div>
         
@@ -153,7 +142,7 @@
         <input type="tel" id="regPhoneField" placeholder="Phone number (e.g., 0771234567)" maxlength="13">
         <span class="error-message" id="phoneError"></span>
         
-        <input type="text" id="regTransactionField" placeholder="Transaction reference from Airtel Money">
+        <input type="text" id="regTransactionField" placeholder="Transaction reference from your payment">
         <span class="error-message" id="txnError"></span>
         
         <button id="submitPaymentRequestBtn"><i class="fas fa-paper-plane"></i> Submit Registration</button>
@@ -199,41 +188,12 @@
 </div>
 
 <!-- Admin Panel -->
-<div id="adminGlobalModal" class="modal">
-    <div class="modal-card">
-        <span id="closeAdminModal" style="float:right; font-size:1.8rem; cursor:pointer;">&times;</span>
-        <h3><i class="fas fa-user-shield"></i> Admin Console</h3>
-        <input type="password" id="adminPasswordInput" placeholder="Admin password">
-        <button id="adminLoginBtnGlobal">Login</button>
-        <div id="adminSecureContent" style="display:none; margin-top: 1.5rem;">
-            <div class="reset-warning">
-                <i class="fas fa-trash-alt"></i> <strong>Reset Marketplace</strong><br>
-                <small>Click below to delete ALL products and start fresh</small>
-                <button id="resetAllDataBtn" class="btn-reset" style="margin-top: 8px;"><i class="fas fa-database"></i> Delete All Products & Vendors</button>
-            </div>
-            <h4>Pending Vendor Requests</h4>
-            <div id="pendingVendorsAdminList"></div>
-            <h4 style="margin-top: 1rem;">Approved Vendors</h4>
-            <div id="approvedVendorsAdminList"></div>
-        </div>
-    </div>
-</div>
+<div id="adminGlobalModal" class="modal"><div class="modal-card"><span id="closeAdminModal" style="float:right; font-size:1.8rem; cursor:pointer;">&times;</span><h3><i class="fas fa-user-shield"></i> Admin Console</h3><input type="password" id="adminPasswordInput" placeholder="Admin password"><button id="adminLoginBtnGlobal">Login</button><div id="adminSecureContent" style="display:none; margin-top: 1.5rem;"><h4>Pending Vendor Requests</h4><div id="pendingVendorsAdminList"></div><h4 style="margin-top: 1rem;">Approved Vendors</h4><div id="approvedVendorsAdminList"></div></div></div></div>
 
 <div id="editPriceModal" class="modal"><div class="modal-card"><span id="closeEditModal" style="float:right; font-size:1.8rem; cursor:pointer;">&times;</span><h3><i class="fas fa-edit"></i> Update Price</h3><p id="editProductNameDisplay"></p><input type="number" id="editPriceInput" placeholder="New price (UGX)"><button id="confirmEditPriceBtn">Save Changes</button></div></div>
 
 <script>
-    // FORCE CLEAR ANY EXISTING DATA ON PAGE LOAD
-    // This ensures NO fake products ever appear
-    if (localStorage.getItem('CreedMarket_products') && localStorage.getItem('CreedMarket_products') !== '[]') {
-        // Check if there are any products that look like sample data
-        let existingProducts = JSON.parse(localStorage.getItem('CreedMarket_products')) || [];
-        if (existingProducts.length > 0) {
-            // Clear everything on first load of this version
-            localStorage.clear();
-            console.log("Cleared old marketplace data");
-        }
-    }
-    
+    // EMPTY MARKETPLACE - NO SAMPLE DATA
     let approvedVendors = JSON.parse(localStorage.getItem('CreedMarket_approvedVendors')) || [];
     let pendingVendors = JSON.parse(localStorage.getItem('CreedMarket_pendingVendors')) || [];
     let allProducts = JSON.parse(localStorage.getItem('CreedMarket_products')) || [];
@@ -243,6 +203,8 @@
     const PAYMENT_NUMBER = "0709298041";
     let currentEditProductId = null;
     let currentImageData = null;
+
+    // NO SAMPLE PRODUCTS - COMPLETELY EMPTY MARKETPLACE
 
     function syncStorage() {
         localStorage.setItem('CreedMarket_approvedVendors', JSON.stringify(approvedVendors));
@@ -264,9 +226,13 @@
         document.getElementById('cartCountNumber').innerText = total;
     }
 
-    function openAirtelMoney() {
-        window.location.href = `tel:*185*${PAYMENT_NUMBER}*5000#`;
-        showToast("Opening Airtel Money... Complete payment of 5,000 UGX");
+    function openMobileMoney(provider) {
+        if (provider === 'mtn') {
+            window.location.href = `tel:*165*${PAYMENT_NUMBER}*5000#`;
+        } else if (provider === 'airtel') {
+            window.location.href = `tel:*185*${PAYMENT_NUMBER}*5000#`;
+        }
+        showToast(`Opening ${provider === 'mtn' ? 'MTN MoMo' : 'Airtel Money'}... Complete payment of 5,000 UGX`);
     }
 
     function validatePhone(phone) {
@@ -345,35 +311,6 @@
         });
     }
 
-    // Search functionality
-    const searchInput = document.getElementById('globalSearchField');
-    const searchClearBtn = document.getElementById('searchClearBtn');
-    
-    if (searchInput && searchClearBtn) {
-        searchInput.addEventListener('input', function() {
-            renderMarketplace();
-            if (this.value.length > 0) {
-                searchClearBtn.classList.add('show');
-            } else {
-                searchClearBtn.classList.remove('show');
-            }
-        });
-        
-        searchClearBtn.addEventListener('click', function() {
-            searchInput.value = '';
-            renderMarketplace();
-            searchClearBtn.classList.remove('show');
-            searchInput.focus();
-        });
-        
-        document.addEventListener('keydown', function(e) {
-            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                e.preventDefault();
-                searchInput.focus();
-            }
-        });
-    }
-
     function getContactButtons(phone) {
         let cleanPhone = phone.replace(/\s+/g, '');
         if (cleanPhone.startsWith('0')) cleanPhone = '256' + cleanPhone.substring(1);
@@ -382,7 +319,7 @@
     }
 
     function performSearch() {
-        const searchTerm = searchInput?.value.toLowerCase().trim() || "";
+        const searchTerm = document.getElementById('globalSearchField')?.value.toLowerCase().trim() || "";
         let filtered = allProducts;
         
         if (searchTerm !== "") {
@@ -396,7 +333,7 @@
         const countEl = document.getElementById('searchResultsCount');
         if (countEl) {
             if (searchTerm === "") {
-                countEl.innerHTML = `📦 ${filtered.length} product${filtered.length !== 1 ? 's' : ''} available`;
+                countEl.innerHTML = `📦 Showing all ${filtered.length} products`;
             } else {
                 countEl.innerHTML = `🔍 Found ${filtered.length} result${filtered.length !== 1 ? 's' : ''} for "${searchTerm}"`;
             }
@@ -417,7 +354,7 @@
         }
         
         if (filtered.length === 0) {
-            container.innerHTML = `<div class="no-results"><i class="fas fa-search" style="font-size: 3rem; color: #cbd5e1; margin-bottom: 1rem;"></i><h3>No products found</h3><p>Try adjusting your search or become a seller.</p></div>`;
+            container.innerHTML = `<div class="no-results"><i class="fas fa-search" style="font-size: 3rem; color: #cbd5e1; margin-bottom: 1rem;"></i><h3>No products found</h3><p>Try searching for something else.</p></div>`;
             return;
         }
         
@@ -499,7 +436,8 @@
     const regModal = document.getElementById('registerSellerModal');
     document.getElementById('sellerApplyNav').onclick = () => regModal.style.display = 'flex';
     document.getElementById('closeRegModalBtn').onclick = () => regModal.style.display = 'none';
-    document.getElementById('payWithAirtel').onclick = () => openAirtelMoney();
+    document.getElementById('payWithMTN').onclick = () => openMobileMoney('mtn');
+    document.getElementById('payWithAirtel').onclick = () => openMobileMoney('airtel');
     
     document.getElementById('submitPaymentRequestBtn').onclick = () => {
         let name = document.getElementById('regNameField').value.trim();
@@ -515,7 +453,7 @@
         
         pendingVendors.push({ name, phone, transactionId: txId, requestedAt: new Date().toISOString() });
         syncStorage();
-        document.getElementById('regMessageArea').innerHTML = "<span style='color:#059669;'>✓ Registration submitted! Admin will review your Airtel payment and approve within 24 hours.</span>";
+        document.getElementById('regMessageArea').innerHTML = "<span style='color:#059669;'>✓ Registration submitted! Admin will review your payment and approve within 24 hours.</span>";
         document.getElementById('regNameField').value = "";
         document.getElementById('regPhoneField').value = "";
         document.getElementById('regTransactionField').value = "";
@@ -540,7 +478,7 @@
         } else {
             let pending = pendingVendors.find(v => v.phone === phone);
             if(pending) alert("Your registration is pending admin approval. Please wait.");
-            else alert("No account found. Pay 5,000 UGX via Airtel Money and register first.");
+            else alert("No account found. Pay 5,000 UGX and register first.");
         }
     };
     
@@ -638,7 +576,7 @@
         } 
     };
 
-    // Admin Panel with Reset Function
+    // Admin Panel
     const adminModal = document.getElementById('adminGlobalModal');
     document.getElementById('adminNavAccess').onclick = () => adminModal.style.display = 'flex';
     document.getElementById('closeAdminModal').onclick = () => adminModal.style.display = 'none';
@@ -649,27 +587,9 @@
         } else alert("Invalid admin password"); 
     };
     
-    // RESET ALL DATA FUNCTION - This will remove all fake products
-    document.getElementById('resetAllDataBtn')?.addEventListener('click', () => {
-        if(confirm("⚠️ WARNING: This will delete ALL products, vendors, and pending requests. This action cannot be undone. Are you sure?")) {
-            localStorage.clear();
-            approvedVendors = [];
-            pendingVendors = [];
-            allProducts = [];
-            shoppingCart = [];
-            syncStorage();
-            renderMarketplace();
-            updateCartUI();
-            loadAdminDashboard();
-            showToast("✓ Marketplace reset complete. All data cleared.");
-            // Close admin modal after reset
-            setTimeout(() => adminModal.style.display = 'none', 1500);
-        }
-    });
-    
     function loadAdminDashboard() {
         const pendingDiv = document.getElementById('pendingVendorsAdminList');
-        pendingDiv.innerHTML = pendingVendors.map((v, idx) => `<div style="background:#fffbeb; padding:12px; border-radius:24px; margin-bottom:10px; border-left: 4px solid #f59e0b;"><div><strong>${escapeHtml(v.name)}</strong><br><span>📞 ${v.phone}</span><br><span>💰 Airtel Ref: ${escapeHtml(v.transactionId)}</span><br><span class="status-pending"><i class="fas fa-clock"></i> Pending Approval</span></div><button class="approve-btn" data-approveidx="${idx}" style="margin-top:8px;">✓ Approve Vendor</button></div>`).join("");
+        pendingDiv.innerHTML = pendingVendors.map((v, idx) => `<div style="background:#fffbeb; padding:12px; border-radius:24px; margin-bottom:10px; border-left: 4px solid #f59e0b;"><div><strong>${escapeHtml(v.name)}</strong><br><span>📞 ${v.phone}</span><br><span>💰 Ref: ${escapeHtml(v.transactionId)}</span><br><span class="status-pending"><i class="fas fa-clock"></i> Pending Approval</span></div><button class="approve-btn" data-approveidx="${idx}" style="margin-top:8px;">✓ Approve Vendor</button></div>`).join("");
         if(pendingVendors.length === 0) pendingDiv.innerHTML = "<p style='color:#64748b;'>No pending requests.</p>";
         document.querySelectorAll('[data-approveidx]').forEach(btn => btn.addEventListener('click', (e) => { 
             let idx = parseInt(btn.dataset.approveidx); 
@@ -689,10 +609,10 @@
     }
 
     document.getElementById('homeBtnNav').onclick = () => { renderMarketplace(); window.scrollTo(0,0); };
+    document.getElementById('globalSearchField').addEventListener('input', function() { renderMarketplace(); });
     
     renderMarketplace();
     updateCartUI();
 </script>
 </body>
-    </html>                                                    vendorName: vendorInfo ? vendorInfo.name : "Merchant" 
-                
+</html>                                          
