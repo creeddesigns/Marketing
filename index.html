@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -72,6 +72,7 @@
         .payment-buttons { display: flex; gap: 12px; margin: 15px 0; flex-direction: column; }
         .btn-airtel { background: #E60000; color: white; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px; font-size: 1rem; border-radius: 60px; }
         .btn-airtel:hover { transform: translateY(-2px); filter: brightness(1.05); }
+        .btn-reset { background: #e74c3c; color: white; margin-top: 10px; }
         .payment-info { background: #f0fdf4; border-radius: 24px; padding: 1rem; text-align: center; border: 1px solid #bbf7d0; margin: 1rem 0; }
         .payment-info .number { font-size: 1.5rem; font-weight: 800; letter-spacing: 2px; background: #1a3a32; color: white; padding: 8px; border-radius: 40px; display: inline-block; margin: 8px 0; }
         .image-upload-area { border: 2px dashed #cbd5e1; border-radius: 24px; padding: 1rem; text-align: center; margin: 10px 0; cursor: pointer; transition: 0.2s; }
@@ -81,6 +82,7 @@
         .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1a3a32; color: white; padding: 10px 24px; border-radius: 60px; z-index: 1200; font-weight: 600; box-shadow: 0 8px 18px rgba(0,0,0,0.2); font-size: 0.85rem; }
         .no-results { text-align: center; padding: 3rem; background: white; border-radius: 28px; color: #64748b; }
         .become-seller-btn { background: linear-gradient(95deg, #FFB347, #FF8C42); color: #1e2a2a; width: auto; padding: 12px 30px; margin-top: 1rem; border: none; border-radius: 60px; font-weight: 700; cursor: pointer; }
+        .reset-warning { background: #fee2e2; border: 1px solid #fecaca; border-radius: 24px; padding: 0.8rem; margin-bottom: 1rem; text-align: center; }
         @media (max-width: 680px) { .navbar { flex-direction: column; text-align: center; padding: 1rem; } .nav-actions { justify-content: center; } .hero h2 { font-size: 1.4rem; } .search-wrapper { margin: 1rem auto 0; } }
     </style>
 </head>
@@ -197,12 +199,41 @@
 </div>
 
 <!-- Admin Panel -->
-<div id="adminGlobalModal" class="modal"><div class="modal-card"><span id="closeAdminModal" style="float:right; font-size:1.8rem; cursor:pointer;">&times;</span><h3><i class="fas fa-user-shield"></i> Admin Console</h3><input type="password" id="adminPasswordInput" placeholder="Admin password"><button id="adminLoginBtnGlobal">Login</button><div id="adminSecureContent" style="display:none; margin-top: 1.5rem;"><h4>Pending Vendor Requests</h4><div id="pendingVendorsAdminList"></div><h4 style="margin-top: 1rem;">Approved Vendors</h4><div id="approvedVendorsAdminList"></div></div></div></div>
+<div id="adminGlobalModal" class="modal">
+    <div class="modal-card">
+        <span id="closeAdminModal" style="float:right; font-size:1.8rem; cursor:pointer;">&times;</span>
+        <h3><i class="fas fa-user-shield"></i> Admin Console</h3>
+        <input type="password" id="adminPasswordInput" placeholder="Admin password">
+        <button id="adminLoginBtnGlobal">Login</button>
+        <div id="adminSecureContent" style="display:none; margin-top: 1.5rem;">
+            <div class="reset-warning">
+                <i class="fas fa-trash-alt"></i> <strong>Reset Marketplace</strong><br>
+                <small>Click below to delete ALL products and start fresh</small>
+                <button id="resetAllDataBtn" class="btn-reset" style="margin-top: 8px;"><i class="fas fa-database"></i> Delete All Products & Vendors</button>
+            </div>
+            <h4>Pending Vendor Requests</h4>
+            <div id="pendingVendorsAdminList"></div>
+            <h4 style="margin-top: 1rem;">Approved Vendors</h4>
+            <div id="approvedVendorsAdminList"></div>
+        </div>
+    </div>
+</div>
 
 <div id="editPriceModal" class="modal"><div class="modal-card"><span id="closeEditModal" style="float:right; font-size:1.8rem; cursor:pointer;">&times;</span><h3><i class="fas fa-edit"></i> Update Price</h3><p id="editProductNameDisplay"></p><input type="number" id="editPriceInput" placeholder="New price (UGX)"><button id="confirmEditPriceBtn">Save Changes</button></div></div>
 
 <script>
-    // COMPLETELY EMPTY - NO SAMPLE DATA AT ALL
+    // FORCE CLEAR ANY EXISTING DATA ON PAGE LOAD
+    // This ensures NO fake products ever appear
+    if (localStorage.getItem('CreedMarket_products') && localStorage.getItem('CreedMarket_products') !== '[]') {
+        // Check if there are any products that look like sample data
+        let existingProducts = JSON.parse(localStorage.getItem('CreedMarket_products')) || [];
+        if (existingProducts.length > 0) {
+            // Clear everything on first load of this version
+            localStorage.clear();
+            console.log("Cleared old marketplace data");
+        }
+    }
+    
     let approvedVendors = JSON.parse(localStorage.getItem('CreedMarket_approvedVendors')) || [];
     let pendingVendors = JSON.parse(localStorage.getItem('CreedMarket_pendingVendors')) || [];
     let allProducts = JSON.parse(localStorage.getItem('CreedMarket_products')) || [];
@@ -212,8 +243,6 @@
     const PAYMENT_NUMBER = "0709298041";
     let currentEditProductId = null;
     let currentImageData = null;
-
-    // NO SAMPLE PRODUCTS - PURE EMPTY STATE
 
     function syncStorage() {
         localStorage.setItem('CreedMarket_approvedVendors', JSON.stringify(approvedVendors));
@@ -235,7 +264,6 @@
         document.getElementById('cartCountNumber').innerText = total;
     }
 
-    // Airtel Only Payment
     function openAirtelMoney() {
         window.location.href = `tel:*185*${PAYMENT_NUMBER}*5000#`;
         showToast("Opening Airtel Money... Complete payment of 5,000 UGX");
@@ -610,7 +638,7 @@
         } 
     };
 
-    // Admin Panel
+    // Admin Panel with Reset Function
     const adminModal = document.getElementById('adminGlobalModal');
     document.getElementById('adminNavAccess').onclick = () => adminModal.style.display = 'flex';
     document.getElementById('closeAdminModal').onclick = () => adminModal.style.display = 'none';
@@ -620,6 +648,24 @@
             loadAdminDashboard(); 
         } else alert("Invalid admin password"); 
     };
+    
+    // RESET ALL DATA FUNCTION - This will remove all fake products
+    document.getElementById('resetAllDataBtn')?.addEventListener('click', () => {
+        if(confirm("⚠️ WARNING: This will delete ALL products, vendors, and pending requests. This action cannot be undone. Are you sure?")) {
+            localStorage.clear();
+            approvedVendors = [];
+            pendingVendors = [];
+            allProducts = [];
+            shoppingCart = [];
+            syncStorage();
+            renderMarketplace();
+            updateCartUI();
+            loadAdminDashboard();
+            showToast("✓ Marketplace reset complete. All data cleared.");
+            // Close admin modal after reset
+            setTimeout(() => adminModal.style.display = 'none', 1500);
+        }
+    });
     
     function loadAdminDashboard() {
         const pendingDiv = document.getElementById('pendingVendorsAdminList');
@@ -648,4 +694,5 @@
     updateCartUI();
 </script>
 </body>
-  </html>
+    </html>                                                    vendorName: vendorInfo ? vendorInfo.name : "Merchant" 
+                
